@@ -1,0 +1,9 @@
+h1 {
+  color: #56FF00;
+  font-size: 20px;
+  font-family: Courier;
+}
+#gamelink {
+  text-align: center;
+  border: 1px solid gray;
+}
