@@ -50,9 +50,6 @@ function create() {
   var background = game.add.image(0, 0, "backgroundImg");
   background.width = 790
   background.height = 400;
-  game.input
-  .keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-  .onDown.add(spaceHandler);
   labelScore = game.add.text(20, 20, "Player 1 score : 0", {fill: "#FFFFFF"})
   labelScore2 = game.add.text(20, 50, "Player 2 score : 0", {fill: "#FFFFFF"})
   labelScore3 = game.add.text(20, 80, "Player 3 score : 0", {fill: "#FFFFFF"})
@@ -65,10 +62,6 @@ function create() {
   player.scale.setTo(43 / 149, 33 / 108);
   player2.scale.setTo(43 / 82, 33 / 63);
   player3.scale.setTo(43 / 149, 33 / 108);
-  game.input.keyboard.addKey(Phaser.Keyboard.S).onDown.add(easy)
-  game.input.keyboard.addKey(Phaser.Keyboard.D).onDown.add(medium)
-  game.input.keyboard.addKey(Phaser.Keyboard.F).onDown.add(hard)
-  game.input.keyboard.addKey(Phaser.Keyboard.G).onDown.add(impossible)
   generatePipe();
   game.physics.startSystem(Phaser.Physics.ARCADE);
   game.physics.arcade.enable(player);
@@ -179,23 +172,22 @@ function moveDown() {
   player.y +=10;
 }
 function generatePipe() {
- // calculate a random position for the gap
  var gap = game.rnd.integerInRange(1 ,5);
- // generate the pipes, except where the gap should be
+ var random = game.rnd.integerInRange(-25, 25)
  for (var count=-3; count<11; count++) {
  if (count != gap && count != gap+1) {
-   addPipeBlock(780, count*50);
-   var pipeEnd = game.add.sprite(775, gap*50-25, "PipeEnd");
+   addPipeBlock(780, count*50 + random);
+   var pipeEnd = game.add.sprite(775, gap*50 - 10 + random, "PipeEnd");
    End.push(pipeEnd);
    game.physics.arcade.enable(pipeEnd);
    pipeEnd.body.velocity.x = interval;
-   var pipeEnd = game.add.sprite(775, gap*50+100, "PipeEnd")
+   var pipeEnd = game.add.sprite(775, gap*50 + 90 + random, "PipeEnd")
    End.push(pipeEnd);
    game.physics.arcade.enable(pipeEnd);
    pipeEnd.body.velocity.x = interval;
+  }
  }
- }
- changeScore()
+changeScore();
  }
 
 function addPipeBlock(x, y) {

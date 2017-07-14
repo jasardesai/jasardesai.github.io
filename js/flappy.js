@@ -42,17 +42,10 @@ function create() {
   var background = game.add.image(0, 0, "desertImg");
   background.width = 790
   background.height = 400;
-  game.input
-  .keyboard.addKey(Phaser.Keyboard.SPACEBAR)
-  .onDown.add(spaceHandler);
   labelScore = game.add.text(20, 20, "Player 1 score : 0")
   player = game.add.sprite(100, 200, "playerImg");
   player.anchor.setTo(0.5, 0.5);
   player.scale.setTo(43 / 149, 33 / 108);
-  game.input.keyboard.addKey(Phaser.Keyboard.A).onDown.add(easy)
-  game.input.keyboard.addKey(Phaser.Keyboard.S).onDown.add(medium)
-  game.input.keyboard.addKey(Phaser.Keyboard.D).onDown.add(hard)
-  game.input.keyboard.addKey(Phaser.Keyboard.F).onDown.add(impossible)
   generatePipe();
   game.physics.startSystem(Phaser.Physics.ARCADE);
   game.physics.arcade.enable(player);
@@ -97,14 +90,15 @@ function changeScore() {
 
 function generatePipe() {
  var gap = game.rnd.integerInRange(1 ,5);
+ var random = game.rnd.integerInRange(-25, 25)
  for (var count=-3; count<11; count++) {
  if (count != gap && count != gap+1) {
-   addPipeBlock(780, count*50);
-   var pipeEnd = game.add.sprite(775, gap*50-5, "PipeEnd");
+   addPipeBlock(780, count*50 + random);
+   var pipeEnd = game.add.sprite(775, gap*50 - 10 + random, "PipeEnd");
    End.push(pipeEnd);
    game.physics.arcade.enable(pipeEnd);
    pipeEnd.body.velocity.x = interval;
-   var pipeEnd = game.add.sprite(775, gap*50+100, "PipeEnd")
+   var pipeEnd = game.add.sprite(775, gap*50 + 90 + random, "PipeEnd")
    End.push(pipeEnd);
    game.physics.arcade.enable(pipeEnd);
    pipeEnd.body.velocity.x = interval;
